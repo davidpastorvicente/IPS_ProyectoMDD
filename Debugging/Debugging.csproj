@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.10318</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E72BF5E7-B8EE-41F9-916F-2E9177D9BF36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Debugging</RootNamespace>
+    <AssemblyName>Debugging</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Dsl\GeneratedCode\DNRDPVSQGProyectoMDDSchema.xsd">
+      <Link>DNRDPVSQGProyectoMDDSchema.xsd</Link>
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="DNRDPVSQGProyectoMDDReport.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DNRDPVSQGProyectoMDDReport.txt</LastGenOutput>
+    </None>
+    <None Include="DNRDPVSQGProyectoMDDReportVB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DNRDPVSQGProyectoMDDReportVB.txt</LastGenOutput>
+    </None>
+    <None Include="Sample.DDSProyMDD">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sample.DDSProyMDD.diagram">
+      <DependentUpon>Sample.DDSProyMDD</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DialogFacebook.java">
+      <DependentUpon>Java.tt</DependentUpon>
+    </Content>
+    <Content Include="DialogInstagram.java">
+      <DependentUpon>Java.tt</DependentUpon>
+    </Content>
+    <Content Include="DialogOpciones.java">
+      <DependentUpon>Java.tt</DependentUpon>
+    </Content>
+    <Content Include="DNRDPVSQGProyectoMDDReport.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DNRDPVSQGProyectoMDDReport.tt</DependentUpon>
+    </Content>
+    <Content Include="DNRDPVSQGProyectoMDDReportVB.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DNRDPVSQGProyectoMDDReportVB.tt</DependentUpon>
+    </Content>
+    <Content Include="FrameInicio.java">
+      <DependentUpon>Java.tt</DependentUpon>
+    </Content>
+    <Content Include="HTML.html">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HTML.tt</DependentUpon>
+    </Content>
+    <Content Include="HTML.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HTML.html</LastGenOutput>
+    </Content>
+    <Content Include="Java.java">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Java.tt</DependentUpon>
+    </Content>
+    <Content Include="Java.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Java.java</LastGenOutput>
+    </Content>
+    <Content Include="PaginaFacebook.html">
+      <DependentUpon>HTML.tt</DependentUpon>
+    </Content>
+    <Content Include="PaginaInstagram.html">
+      <DependentUpon>HTML.tt</DependentUpon>
+    </Content>
+    <Content Include="PaginaOpciones.html">
+      <DependentUpon>HTML.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,112 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" language="C#" hostspecific="True"#>
+<#@ output extension=".html" #>
+<#@ DNRDPVSQGProyectoMDD processor="DNRDPVSQGProyectoMDDDirectiveProcessor" requires="fileName='Sample.DDSProyMDD'" #>
+<#@ include file="EF.utility.CS.ttinclude" #>
+
+<#
+	if(this.Tapiz.VentanaPrincipal != null) {
+		WriteLine("<html>");
+		crearHead(this.Tapiz.VentanaPrincipal);
+		crearBody(this.Tapiz.VentanaPrincipal);
+		WriteLine("</html>");
+	}
+
+	var fileManager=EntityFrameworkTemplateFileManager.Create(this);
+
+	if(this.Tapiz.VentanaSecundaria.Count>0) {
+		foreach(VentanaSecundaria v in this.Tapiz.VentanaSecundaria) {
+			fileManager.StartNewFile("Pagina" + v.nombre + ".html");
+			WriteLine("<html>");
+			crearHead(v);
+			crearBody(v);
+			WriteLine("</html>");
+		}
+	}
+ 
+ fileManager.Process();
+#>
+
+<#+
+	public void crearHead(Ventana v) {
+#>
+
+<head>
+	<title>Pagina<#=v.nombre#></title>
+	<style>
+		body{font-family:arial;}
+		table{font-size:80%;background:rgb(0,110,110)}
+		p{color:rgb(0,250,250);font:bold; margin-bottom:0px; padding-bottom:0px;}
+		td.menu{background:rgb(0,150,150)}
+		table.menu{
+			font-size:100%;
+			position:absolute;
+			visibility:hidden;
+		}
+	</style>	
+	<script type="text/javascript">
+		function showmenu(elmnt)
+		{
+			document.getElementById(elmnt).style.visibility="visible";
+		}
+		function hidemenu(elmnt)
+		{
+			document.getElementById(elmnt).style.visibility="hidden";
+		}
+	</script>
+</head>
+
+<#+
+	}
+#>
+
+<#+ 
+	public void crearBody(Ventana v) {
+		WriteLine("<body>");
+		
+		if(v.Menu.Count>0) {
+			WriteLine("\n<table width=\"100\">");
+			WriteLine("\t<tr>");
+			foreach(Menu m in v.Menu) {
+				WriteLine("\n\t<td onmouseover=\"showmenu('"+ m.caption + "')\" onmouseout=\"hidemenu('" + m.caption + "')\">");
+				WriteLine("\t\t<p>" + m.caption + "</p>");
+				WriteLine("\t\t<table class=\"menu\" id=\"" + m.caption + "\" width=\"50\">");
+				foreach(Item i in m.Item) {
+					WriteLine("\n\t\t<tr>");
+					WriteLine("\t\t\t<td class=\"menu\">");
+
+					if(i.Objetivo!=null) {
+						if (i.Objetivo is Ventana) {
+							Ventana aux= (Ventana)i.Objetivo;	
+							if(aux is VentanaSecundaria)
+								WriteLine("\t\t\t\t<a href=\"Pagina" + aux.nombre + ".html\">" + i.titulo + "</a>");
+							else WriteLine("\t\t\t\t<a href=\"HTML.html\">" + i.titulo + "</a>");
+						}
+						else WriteLine("\t\t\t\t<a href=\"javascript:alert('Fin de la aplicacion'); window.close();\">" + i.titulo + "</a>");
+					}
+
+					WriteLine("\t\t\t</td>");
+					WriteLine("\t\t</tr>");
+				}
+				WriteLine("\t\t</table>");
+				WriteLine("\t</td>");
+			}
+			WriteLine("\t</tr>");
+			WriteLine("</table>");
+		}
+
+		WriteLine("<br><br><br>");
+
+		foreach(Boton b in v.Boton) {
+			if(b.Objetivo!=null) {
+				if (b.Objetivo is Ventana) {
+					Ventana aux= (Ventana)b.Objetivo;	
+					if(aux is VentanaSecundaria)
+						WriteLine("\t<button onclick=\"javascript:document.location='Pagina" + aux.nombre + ".html'\">" + b.caption + "</button>");
+					else WriteLine("\t<button onclick=\"javascript:document.location='HTML.html'\">" + b.caption + "</button>");
+				}
+				else WriteLine("\t<button onclick=\"javascript:alert('Fin de la aplicacion'); window.close();\">" + b.caption + "</button>");
+			}			
+		}
+		WriteLine("</body>");
+	}
+#>

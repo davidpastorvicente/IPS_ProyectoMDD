@@ -1,0 +1,64 @@
+﻿
+
+<html>
+
+<head>
+	<title>PaginaInicio</title>
+	<style>
+		body{font-family:arial;}
+		table{font-size:80%;background:rgb(0,110,110)}
+		p{color:rgb(0,250,250);font:bold; margin-bottom:0px; padding-bottom:0px;}
+		td.menu{background:rgb(0,150,150)}
+		table.menu{
+			font-size:100%;
+			position:absolute;
+			visibility:hidden;
+		}
+	</style>	
+	<script type="text/javascript">
+		function showmenu(elmnt)
+		{
+			document.getElementById(elmnt).style.visibility="visible";
+		}
+		function hidemenu(elmnt)
+		{
+			document.getElementById(elmnt).style.visibility="hidden";
+		}
+	</script>
+</head>
+
+<body>
+
+<table width="100">
+	<tr>
+
+	<td onmouseover="showmenu('Social')" onmouseout="hidemenu('Social')">
+		<p>Social</p>
+		<table class="menu" id="Social" width="50">
+
+		<tr>
+			<td class="menu">
+				<a href="javascript:alert('Fin de la aplicacion'); window.close();">Salir</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="menu">
+				<a href="PaginaInstagram.html">Instagram</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="menu">
+				<a href="PaginaFacebook.html">Facebook</a>
+			</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+</table>
+<br><br><br>
+	<button onclick="javascript:alert('Fin de la aplicacion'); window.close();">Apagar</button>
+</body>
+</html>
+

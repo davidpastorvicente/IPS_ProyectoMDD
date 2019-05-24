@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{0e53b892-dd5b-455c-982f-18ec0197fd14}</TemplateID>
+		<Name Package="{b22c0886-2fa7-4ded-b8ab-88c85c0dce5a}" ID="103"/>
+		<Description Package="{b22c0886-2fa7-4ded-b8ab-88c85c0dce5a}" ID="102"/>
+		<Icon Package="{b22c0886-2fa7-4ded-b8ab-88c85c0dce5a}" ID="201" />
+		<ProjectType>VisualBasic</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>DNRDPVSQGProyectoMDD.DDSProyMDD</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.DDSProyMDD">DDSProyMDD.DDSProyMDD</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.DDSProyMDD.diagram">DDSProyMDD.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+

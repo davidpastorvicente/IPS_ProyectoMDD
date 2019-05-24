@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tapiz xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9c91d86f-7cc1-4a5f-a622-19380081b1c0" xmlns="http://schemas.microsoft.com/dsltools/DNRDPVSQGProyectoMDD">
+  <estadoFin>
+    <tapizHasEstadoFin Id="688a1354-62c2-4959-85df-626539f07005">
+      <estadoFin Id="faf3f80d-090e-4b91-97ae-553b7c2e9b80" />
+    </tapizHasEstadoFin>
+  </estadoFin>
+  <ventanaPrincipal>
+    <tapizHasVentanaPrincipal Id="5308c88d-3922-46bf-89a8-5616a0d8152a">
+      <ventanaPrincipal Id="4c0b2512-f373-4651-ae81-8fd73e014929" nombre="Inicio">
+        <menu>
+          <ventanaHasMenu Id="3d494048-aaaa-49c9-a873-bf52cdaa0e3a">
+            <menu Id="1092e899-c912-4c39-9b3c-5accc5629ef3" caption="Social">
+              <item>
+                <menuHasItem Id="30d0d90d-768b-49f3-80d9-22dd5b3fdc69">
+                  <item Id="6068a973-d3d0-4308-bd75-255e5c5fe995" titulo="Salir" tipo="PorDefecto">
+                    <objetivo>
+                      <relacionAccion Id="824d94b0-2900-4b94-b8ce-72e5f5400c38">
+                        <estadoFinMoniker Id="faf3f80d-090e-4b91-97ae-553b7c2e9b80" />
+                      </relacionAccion>
+                    </objetivo>
+                  </item>
+                </menuHasItem>
+                <menuHasItem Id="39f9befe-3fba-4d02-b772-ec0bf65448fd">
+                  <item Id="09c3f600-2117-4af8-88b2-17235c5ca1bd" titulo="Instagram" tipo="Instagram">
+                    <objetivo>
+                      <relacionAccion Id="aecd2587-befe-4f6f-8681-04f8c389721c">
+                        <ventanaSecundariaMoniker Id="1be3acd0-acc7-49a6-8811-85d6084fd232" />
+                      </relacionAccion>
+                    </objetivo>
+                  </item>
+                </menuHasItem>
+                <menuHasItem Id="d2056666-30a0-4f8a-b15c-06cea14e4056">
+                  <item Id="8965877e-bf0a-4770-b9f0-867ed5e46f26" titulo="Facebook" tipo="Facebook">
+                    <objetivo>
+                      <relacionAccion Id="e1f2ca18-09d1-4cd1-bba8-91c95f25e5f1">
+                        <ventanaSecundariaMoniker Id="2a9614a6-8b01-48b8-b276-f50c68312d48" />
+                      </relacionAccion>
+                    </objetivo>
+                  </item>
+                </menuHasItem>
+              </item>
+            </menu>
+          </ventanaHasMenu>
+        </menu>
+        <boton>
+          <ventanaHasBoton Id="acb746b2-1f9f-46c7-a01a-7bcde0cc73ad">
+            <boton Id="908a1e6e-fd7c-4f30-bfae-c18ef44b07cb" caption="Apagar">
+              <objetivo>
+                <relacionAccion Id="cbee8b88-061e-44dd-a10e-094d01f2e3dd">
+                  <estadoFinMoniker Id="faf3f80d-090e-4b91-97ae-553b7c2e9b80" />
+                </relacionAccion>
+              </objetivo>
+            </boton>
+          </ventanaHasBoton>
+        </boton>
+      </ventanaPrincipal>
+    </tapizHasVentanaPrincipal>
+  </ventanaPrincipal>
+  <ventanaSecundaria>
+    <tapizHasVentanaSecundaria Id="2f12fd1e-bfce-4c8d-bd88-0664abf025fb">
+      <ventanaSecundaria Id="1be3acd0-acc7-49a6-8811-85d6084fd232" nombre="Instagram" modal="false">
+        <menu>
+          <ventanaHasMenu Id="f39b4166-eaa6-4c8c-b502-3e0f8b9810d6">
+            <menu Id="4d567317-05d6-40d5-b7fd-84eee3a00a24" caption="Stories">
+              <item>
+                <menuHasItem Id="9e4848c4-fd79-4d56-9d7c-5158cd527212">
+                  <item Id="bdc1a909-7fa3-42e9-9a67-5b2affcf372c" titulo="Opciones" tipo="PorDefecto">
+                    <objetivo>
+                      <relacionAccion Id="5b44fdab-0358-4216-9c96-ac9467923cbf">
+                        <ventanaSecundariaMoniker Id="f4227649-a588-4796-9034-d3b7fb97f071" />
+                      </relacionAccion>
+                    </objetivo>
+                  </item>
+                </menuHasItem>
+              </item>
+            </menu>
+          </ventanaHasMenu>
+        </menu>
+        <boton>
+          <ventanaHasBoton Id="16f6abad-0a11-42ab-a260-a9b34a3dfede">
+            <boton Id="da9cf998-871b-4ac1-a13b-c1f7aa1b56ab" caption="Atras">
+              <objetivo>
+                <relacionAccion Id="51c5df62-c65f-45fa-a4a9-0237e42454b9">
+                  <ventanaPrincipalMoniker Id="4c0b2512-f373-4651-ae81-8fd73e014929" />
+                </relacionAccion>
+              </objetivo>
+            </boton>
+          </ventanaHasBoton>
+        </boton>
+      </ventanaSecundaria>
+    </tapizHasVentanaSecundaria>
+    <tapizHasVentanaSecundaria Id="bd8bac23-7332-4e2e-ac56-aead80c78267">
+      <ventanaSecundaria Id="2a9614a6-8b01-48b8-b276-f50c68312d48" nombre="Facebook" modal="false">
+        <boton>
+          <ventanaHasBoton Id="da5290e8-03dc-4df1-bdbf-8cc53d382708">
+            <boton Id="79b7ce56-1bc2-4991-abe6-7e2649ad022b" caption="Volver">
+              <objetivo>
+                <relacionAccion Id="a63e0c95-fac7-402e-866c-89b22da39422">
+                  <ventanaPrincipalMoniker Id="4c0b2512-f373-4651-ae81-8fd73e014929" />
+                </relacionAccion>
+              </objetivo>
+            </boton>
+          </ventanaHasBoton>
+        </boton>
+      </ventanaSecundaria>
+    </tapizHasVentanaSecundaria>
+    <tapizHasVentanaSecundaria Id="9d1951a7-9039-4218-83a7-ab6999a8b836">
+      <ventanaSecundaria Id="f4227649-a588-4796-9034-d3b7fb97f071" nombre="Opciones" modal="true">
+        <menu>
+          <ventanaHasMenu Id="6ea8b4b6-7bea-44b7-a339-dc36ad68443b">
+            <menu Id="66ca395f-d222-4b65-93bb-ef472a812404" caption="Sistema">
+              <item>
+                <menuHasItem Id="adcde26e-8d0e-4e33-915b-a46a6d405d71">
+                  <item Id="8d02fcd5-6094-4ef0-8c1e-58ac31a115be" titulo="Resetear" tipo="PorDefecto">
+                    <objetivo>
+                      <relacionAccion Id="46096520-ee70-461a-94df-58de82956d99">
+                        <estadoFinMoniker Id="faf3f80d-090e-4b91-97ae-553b7c2e9b80" />
+                      </relacionAccion>
+                    </objetivo>
+                  </item>
+                </menuHasItem>
+              </item>
+            </menu>
+          </ventanaHasMenu>
+        </menu>
+      </ventanaSecundaria>
+    </tapizHasVentanaSecundaria>
+  </ventanaSecundaria>
+</tapiz>

@@ -1,0 +1,223 @@
+<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" language="C#" hostspecific="True"#>
+<#@ output extension=".java" #>
+<#@ DNRDPVSQGProyectoMDD processor="DNRDPVSQGProyectoMDDDirectiveProcessor" requires="fileName='Sample.DDSProyMDD'" #>
+<#@ include file="EF.utility.CS.ttinclude" #>
+
+public class Java {
+	public static void main(String[] args) {
+		new Frame<#=this.Tapiz.VentanaPrincipal.nombre#>();
+	}
+}
+
+<#
+	String name;
+	var fileManager=EntityFrameworkTemplateFileManager.Create(this);
+
+	if(this.Tapiz.VentanaPrincipal != null) {
+		name= "Frame" + this.Tapiz.VentanaPrincipal.nombre;
+		fileManager.StartNewFile(name + ".java");
+#>
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class <#=name#> extends Frame implements ActionListener {
+
+<#
+		declaraAtributos(this.Tapiz.VentanaPrincipal);
+		generaConstructor(this.Tapiz.VentanaPrincipal, name);
+		crearMetodo(this.Tapiz.VentanaPrincipal);
+		WriteLine("}");
+	}
+
+	if(this.Tapiz.VentanaSecundaria.Count>0) {
+		foreach(VentanaSecundaria v in this.Tapiz.VentanaSecundaria) {
+			name= "Dialog" + v.nombre;
+			fileManager.StartNewFile(name + ".java");
+#>
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class <#=name#> extends Dialog implements ActionListener {
+
+<#
+			declaraAtributos(v);
+			generaConstructor(v, name);
+			crearMetodo(v);
+			WriteLine("}");
+		}
+	}
+ 
+ fileManager.Process();
+#>
+
+<#+
+	public void declaraAtributos(Ventana v) {
+		foreach(Menu m in v.Menu)
+			foreach(Item i in m.Item)
+				if(i.Objetivo!=null && i.Objetivo is Ventana) {
+					Ventana aux= (Ventana)i.Objetivo;
+					if(aux is VentanaSecundaria)
+						WriteLine("\tprivate Dialog" + aux.nombre + " ventana" + aux.nombre + ";");
+				}
+					
+		foreach(Boton b in v.Boton)
+			if(b.Objetivo!=null && b.Objetivo is Ventana) {
+				Ventana aux= (Ventana)b.Objetivo;
+				if(aux is VentanaSecundaria)	
+					WriteLine("\tprivate Dialog" + aux.nombre + " ventana" + aux.nombre + ";");
+
+			}
+
+		foreach(Menu m in v.Menu)
+			foreach(Item i in m.Item)
+				if(v is VentanaPrincipal) WriteLine("\tprivate MenuItem item" + i.titulo + ";");
+				else WriteLine("\tprivate Button item" + i.titulo + ";");
+
+		foreach(Boton b in v.Boton)
+			WriteLine("\tprivate Button boton" + b.caption + ";");
+						
+	} 
+#>
+
+<#+
+	public void generaConstructor(Ventana v, String title) {
+		if (v is VentanaPrincipal) {
+			WriteLine("\n\tpublic " + title + "() { ");
+			WriteLine("\t\tsuper();");
+			WriteLine("\t\tthis.setTitle(\"" + title + "\");");
+		}
+		else {
+			WriteLine("\n\tpublic " + title + "(" + encontrarPadre((VentanaSecundaria)v) + " padre, boolean modal) { ");
+			WriteLine("\t\tsuper(padre, \"" + title + "\", modal);");
+		}
+		inicializaVentanas(v);
+		WriteLine("\n\t\tthis.setLayout(new FlowLayout());");
+		if(v is VentanaPrincipal) inicializaMenus(v);
+		inicializaBotones(v);
+		WriteLine("\n\t\tthis.setSize(250, 150);");
+		if(v is VentanaPrincipal) WriteLine("\t\tthis.setVisible(true);");
+		WriteLine("\t}");
+		
+	}
+#>
+
+<#+
+	public void inicializaVentanas(Ventana v) {
+		foreach(Menu m in v.Menu)
+			foreach(Item i in m.Item)
+				if(i.Objetivo!=null && i.Objetivo is VentanaSecundaria) {
+					Ventana aux= (Ventana)i.Objetivo;
+					if(aux is VentanaSecundaria)
+						WriteLine("\n\t\tventana" + aux.nombre + "= new Dialog" + aux.nombre 
+													+ "(this, " + getModal((VentanaSecundaria)aux) + ");");
+				}
+
+		foreach(Boton b in v.Boton)
+			if(b.Objetivo!=null && b.Objetivo is Ventana) {
+				Ventana aux= (Ventana)b.Objetivo;	
+				if(aux is VentanaSecundaria)
+					WriteLine("\n\t\tventana" + aux.nombre + "= new Dialog" + aux.nombre 
+													+ "(this, " + getModal((VentanaSecundaria)aux) + ");");
+			}
+	}
+#>
+
+<#+
+	public void inicializaMenus(Ventana v) {
+		if(v.Menu.Count>0) {
+			WriteLine("\n\t\tMenuBar MB = new MenuBar();");
+			WriteLine("\t\tthis.setMenuBar(MB);");
+			foreach(Menu m in v.Menu) {
+				WriteLine("\n\t\tMenu menu" + m.caption + " = new Menu(\"" + m.caption + "\");");
+				foreach(Item i in m.Item) {
+					WriteLine("\t\titem" + i.titulo + " = new MenuItem(\"" + i.titulo + "\");");
+					WriteLine("\t\tmenu" + m.caption + ".add(item" + i.titulo+ ");");
+					WriteLine("\t\titem" + i.titulo + ".addActionListener(this);");
+				}
+				WriteLine("\n\t\tMB.add(menu" + m.caption + ");");
+			}
+		}
+	}
+#>
+
+<#+
+	public void inicializaBotones(Ventana v) {
+		if(v.Boton.Count>0)
+			foreach(Boton b in v.Boton) {
+				WriteLine("\n\t\tboton" + b.caption  + " = new Button(\"" + b.caption + "\");");
+				WriteLine("\t\tthis.add(boton" + b.caption + ");");
+				WriteLine("\t\tboton" + b.caption + ".addActionListener(this);");
+			}
+
+		if(v is VentanaSecundaria) //no se aceptan Menus en Dialogs
+			foreach(Menu m in v.Menu)
+				foreach(Item i in m.Item) {
+					WriteLine("\n\t\titem" + i.titulo  + " = new Button(\"" + i.titulo + "\");");
+					WriteLine("\t\tthis.add(item" + i.titulo + ");");
+					WriteLine("\t\titem" + i.titulo + ".addActionListener(this);");
+				}
+	}
+#>
+
+<#+ 
+	public void crearMetodo(Ventana v) {
+		WriteLine("\n\tpublic void actionPerformed (ActionEvent ae) {");
+		WriteLine("\t\tObject o = ae.getSource();");
+		
+		foreach(Menu m in v.Menu)
+			foreach(Item i in m.Item) {
+				if(i.Objetivo!=null) {
+					WriteLine("\n\t\tif (o == item" + i.titulo + ")");
+					if (i.Objetivo is Ventana) {
+						Ventana aux= (Ventana)i.Objetivo;	
+						if(aux is VentanaSecundaria)
+							WriteLine("\t\t\tventana" + aux.nombre + ".setVisible(true);");
+						else WriteLine("\t\t\tthis.setVisible(false);");
+					}
+					else WriteLine("\t\t\tSystem.exit(0);");
+				}
+				
+			}
+
+		foreach(Boton b in v.Boton) {
+			if(b.Objetivo!=null) {
+			WriteLine("\n\t\tif (o == boton" + b.caption + ")");
+				if (b.Objetivo is Ventana) {
+					Ventana aux= (Ventana)b.Objetivo;	
+					if(aux is VentanaSecundaria)
+						WriteLine("\t\t\tventana" + aux.nombre + ".setVisible(true);");
+					else WriteLine("\t\t\tthis.setVisible(false);");
+				}
+				else WriteLine("\t\t\tSystem.exit(0);");
+			}			
+		}
+		WriteLine("\t}");
+	}
+#>
+
+<#+
+	public String getModal(VentanaSecundaria v) {
+		if(v.modal) return "true";
+		else return "false";
+	}
+#>
+
+<#+
+	public String encontrarPadre(VentanaSecundaria v) {
+		foreach(Ventana vS in this.Tapiz.VentanaSecundaria) {
+			foreach(Menu m in vS.Menu)
+				foreach(Item i in m.Item)
+					if(i.Objetivo!=null && i.Objetivo is VentanaSecundaria) {
+						if(i.Objetivo == v) return "Dialog";
+					}
+
+			foreach(Boton b in vS.Boton)
+				if(b.Objetivo!=null && b.Objetivo is Ventana) {
+					if(b.Objetivo == v) return "Dialog";
+				}
+		}
+		return "Frame";
+	}
+#>
